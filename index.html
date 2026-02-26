@@ -3,150 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Showcase</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Happy Birthday Amama!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #6366f1;
-            --accent: #ec4899;
-            --bg: #0f172a;
-            --glass: rgba(255, 255, 255, 0.05);
-        }
-
-        * { box-sizing: border-box; transition: all 0.3s ease; }
+        :root { --primary: #ff4081; --accent: #7c4dff; --gold: #ffd700; --glass: rgba(255, 255, 255, 0.1); }
+        * { box-sizing: border-box; scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #0a0a0a; color: white; overflow-x: hidden; }
         
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: white;
-            overflow-x: hidden;
-        }
+        .bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 30%, #2c003e 0%, transparent 40%), radial-gradient(circle at 80% 70%, #001d3d 0%, transparent 40%); z-index: -1; }
+        .container { display: flex; flex-direction: column; align-items: center; padding: 0 20px; position: relative; z-index: 10; }
 
-        /* Modern Gradient Background */
-        .mesh-bg {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 0% 0%, #1e1b4b 0%, transparent 50%),
-                        radial-gradient(circle at 100% 100%, #312e81 0%, transparent 50%);
-            z-index: -1;
-        }
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .card { background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 40px; padding: 40px 20px; margin: 20px 0; width: 100%; max-width: 400px; text-align: center; }
 
-        /* Glassmorphism Navigation */
-        nav {
-            position: sticky; top: 0;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 20px 10%;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            z-index: 100;
-            border-bottom: 1px solid var(--glass);
-        }
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--primary); margin: 0; }
+        h2 { font-weight: 800; letter-spacing: -1px; margin: 10px 0; }
 
-        .logo { font-weight: 700; font-size: 1.5rem; letter-spacing: -1px; }
-
-        /* Hero Section */
-        .hero {
-            height: 90vh;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 0 20px;
+        /* Small Gift Boxes */
+        .gift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .gift-box { 
+            background: linear-gradient(45deg, var(--primary), var(--accent)); 
+            aspect-ratio: 1/1; border-radius: 20px; display: flex; justify-content: center; 
+            align-items: center; font-size: 2.5rem; cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); position: relative;
         }
+        .gift-box:hover { transform: scale(1.05); }
+        .gift-box.opened { transform: scale(0); opacity: 0; pointer-events: none; }
+        
+        .reveal-text { position: absolute; font-weight: 600; color: white; padding: 10px; font-size: 0.9rem; opacity: 0; transition: 0.5s; z-index: -1; }
+        .gift-container { position: relative; height: 120px; display: flex; justify-content: center; align-items: center; }
 
-        h1 {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            margin: 0; line-height: 1.1;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* Big Prize Box Styles */
+        .big-prize-container { margin-top: 40px; text-align: center; }
+        .big-gift {
+            width: 150px; height: 150px; background: linear-gradient(45deg, var(--gold), #ff9800);
+            border-radius: 30px; display: flex; justify-content: center; align-items: center;
+            font-size: 5rem; cursor: pointer; margin: 0 auto;
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+            animation: pulse 2s infinite; transition: 0.5s;
         }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .big-gift.opened { transform: scale(0); opacity: 0; pointer-events: none; }
+        
+        #final-message { display: none; margin-top: 20px; font-size: 1.5rem; font-family: 'Dancing Script', cursive; color: var(--gold); }
 
-        .subtitle {
-            font-size: 1.2rem; color: #94a3b8;
-            max-width: 600px; margin: 20px 0;
-        }
-
-        /* Modern Buttons */
-        .btn {
-            padding: 15px 35px; border-radius: 12px;
-            font-weight: 600; cursor: pointer; border: none;
-            font-size: 1rem; text-decoration: none;
-        }
-
-        .btn-primary {
-            background: var(--primary); color: white;
-            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
-        }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(99, 102, 241, 0.4); }
-
-        /* Content Sections */
-        .content { padding: 80px 10%; }
-        .card-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px; margin-top: 50px;
-        }
-
-        .card {
-            background: var(--glass);
-            padding: 40px; border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .card:hover { background: rgba(255,255,255,0.08); border-color: var(--primary); }
+        .btn { background: linear-gradient(45deg, var(--primary), var(--accent)); color: white; border: none; padding: 18px 40px; border-radius: 50px; font-weight: 700; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
+    <div class="bg"></div>
+    <div class="container">
+        <section class="hero">
+            <p style="text-transform: uppercase; letter-spacing: 2px; color: var(--accent);">Moiz Presents</p>
+            <h1>Happy Birthday</h1>
+            <h2>Amama! ✨</h2>
+            <p>Unbox your standard gifts first...</p>
+        </section>
 
-    <div class="mesh-bg"></div>
-
-    <nav>
-        <div class="logo">MODERN.SYS</div>
-        <div class="links">
-            <a href="#" style="color: white; text-decoration: none; margin-left: 20px;">Work</a>
-        </div>
-    </nav>
-
-    <div class="hero">
-        <h1>Building the Future.</h1>
-        <p class="subtitle">A high-performance modern website template built with clean code and professional aesthetics.</p>
-        <button class="btn btn-primary" onclick="triggerParty()">Celebrate Success 🎉</button>
-    </div>
-
-    <div class="content">
-        <div class="card-grid">
-            <div class="card">
-                <h3>Responsive Design</h3>
-                <p>Perfectly optimized for mobile, tablet, and desktop viewing.</p>
+        <section class="card">
+            <h2>Small Surprises 🎁</h2>
+            <div class="gift-grid">
+                <div class="gift-container">
+                    <div class="reveal-text">Endless Joy! 🌟</div>
+                    <div class="gift-box" onclick="openGift(this, false)">🎁</div>
+                </div>
+                <div class="gift-container">
+                    <div class="reveal-text">Best Friend! ❤️</div>
+                    <div class="gift-box" onclick="openGift(this, false)">🎁</div>
+                </div>
             </div>
-            <div class="card">
-                <h3>Fast Performance</h3>
-                <p>Clean code structure ensures lightning-fast loading speeds on Netlify.</p>
+        </section>
+
+        <section class="card">
+            <h2>The Big Prize 🏆</h2>
+            <p>Wait until the end for this one!</p>
+            <div class="big-prize-container">
+                <div class="big-gift" id="prize" onclick="openGift(this, true)">🎁</div>
+                <div id="final-message">
+                    "Amama, you are truly the gold standard of friends. May all your dreams come true! - Moiz"
+                </div>
             </div>
-        </div>
+        </section>
+
+        <section class="card">
+            <h2>The Grand Finale</h2>
+            <button class="btn" onclick="megaCelebration()">PARTY TIME! 🎂</button>
+            <p style="margin-top:15px; opacity:0.6;">Designed by Moiz</p>
+        </section>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-        function triggerParty() {
-            const duration = 3 * 1000;
-            const end = Date.now() + duration;
+        function openGift(element, isBig) {
+            element.classList.add('opened');
+            
+            if (isBig) {
+                document.getElementById('final-message').style.display = 'block';
+                // Massive Gold & Pink Explosion
+                confetti({
+                    particleCount: 300, spread: 100, origin: { y: 0.6 },
+                    colors: ['#ffd700', '#ff4081', '#ffffff']
+                });
+            } else {
+                element.previousElementSibling.style.opacity = "1";
+                element.previousElementSibling.style.zIndex = "1";
+                confetti({ particleCount: 40, spread: 50, origin: { y: 0.6 } });
+            }
+        }
 
+        function megaCelebration() {
+            var duration = 5 * 1000;
+            var end = Date.now() + duration;
             (function frame() {
-                confetti({
-                    particleCount: 3,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: ['#6366f1', '#ec4899']
-                });
-                confetti({
-                    particleCount: 3,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: ['#6366f1', '#ec4899']
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
+                confetti({ particleCount: 7, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ff4081', '#ffd700'] });
+                confetti({ particleCount: 7, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ff4081', '#ffd700'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
             }());
         }
     </script>
